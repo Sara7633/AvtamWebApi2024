@@ -32,7 +32,6 @@ ul{
 
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-   /* max-width: 300px;*/
     margin: auto;
     text-align: center;
     font-family: arial;
@@ -161,7 +160,7 @@ p.description{
     margin: 4px 4px;
     padding-top: 50px;
     padding-bottom: 10px;
-    position: absolute;
+    position: fixed;
     z-index: 102;
     background-color: rgb(249, 249, 249);
     font-family: Arial;

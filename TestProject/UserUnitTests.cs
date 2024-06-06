@@ -108,22 +108,21 @@ namespace TestProject
             await Assert.ThrowsAsync<Exception>(async () => await userRepository.Register(user));
         }
 
-
         [Fact]
-        public async Task TestUpdate_ExistingUser_Success()
+        public async Task Update_ExistingUser_SuccessfullyUpdated()
         {
             // Arrange
-            int userId = 1;
-            var existingUser = new User { Id = userId, UserName = "olduser", Password = "oldpassword" };
-            var updatedUser = new User { Id = userId, UserName = "newuser", Password = "newpassword" };
+            var id = 1;
+            var existingUser = new User { Id = id, UserName = "existinguser", Password = "password123" };
+            var updatedUser = new User { Id = id, UserName = "updateduser", Password = "updated123" };
 
-            var mockDbContext = new Mock<_214346710DbContext>();
-            mockDbContext.Setup(m => m.Users).ReturnsDbSet(new List<User> { existingUser });
+            var dbContextMock = new Mock<_214346710DbContext>();
+            dbContextMock.Setup(m => m.Users).ReturnsDbSet(new List<User> { existingUser });
 
-            var userRepository = new UserRepository(mockDbContext.Object);
+            var userRepository = new UserRepository(dbContextMock.Object);
 
-            // Act
-            var result = await userRepository.Update(userId, updatedUser);
+            // Act;
+            var result = await userRepository.Update(id, updatedUser);
 
             // Assert
             Assert.NotNull(result);
@@ -131,23 +130,23 @@ namespace TestProject
             Assert.Equal(updatedUser.Password, result.Password);
         }
         [Fact]
-        public async Task TestUpdate_UserNotFound_ThrowsException()
+
+        public async Task Update_NonExistingUser_ReturnsNull()
         {
             // Arrange
-            var nonExistingUserId = 2;
-            var existingUser = new User { Id = 1, UserName = "olduser", Password = "oldpassword" };
-            var updatedUser = new User { Id = nonExistingUserId, UserName = "newuser", Password = "newpassword" };
+            var id = 1;
+            var nonExistingUser = new User { Id = id + 1, UserName = "nonexistinguser", Password = "password123" };
+            var existingUser = new User { Id = id, UserName = "existinguser", Password = "password123" };
+            var dbContextMock = new Mock<_214346710DbContext>();
+            dbContextMock.Setup(m => m.Users).ReturnsDbSet(new List<User> { existingUser });
 
-            var mockDbContext = new Mock<_214346710DbContext>();
-            mockDbContext.Setup(m => m.Users).ReturnsDbSet(new List<User> { existingUser });
+            var userRepository = new UserRepository(dbContextMock.Object);
 
-            var userRepository = new UserRepository(mockDbContext.Object);
+            // Act
+            var result = await userRepository.Update(id + 1, nonExistingUser);
 
-            // Act and Assert
-            await Assert.ThrowsAsync<Exception>(async () =>
-            {
-                await userRepository.Update(nonExistingUserId, updatedUser);
-            });
+            // Assert
+            Assert.Null(result);
         }
 
 

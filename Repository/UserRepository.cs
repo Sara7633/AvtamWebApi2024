@@ -36,9 +36,10 @@ namespace Repository
 
         public async Task<User> Update(int id, User user)
         {
+         
             try
             {
-                var foundUser = await userContext.Users.FindAsync(id);
+                User foundUser = await userContext.Users.FirstOrDefaultAsync(u=>u.Id.Equals(id));
                 if (foundUser != null)
                 {
                     foundUser.UserName = user.UserName;
@@ -65,6 +66,20 @@ namespace Repository
                 return userFound;
             }
             return null;
+        }
+
+        public async Task<User> GetUserById(int id)
+        {
+            try
+            {
+                var userFound = await userContext.Users.FirstOrDefaultAsync(u => u.Id == id);
+                return userFound;
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message);
+            }
         }
     }
 }

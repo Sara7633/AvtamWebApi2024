@@ -66,9 +66,9 @@ function validateEmail(email) {
     return emailRegex.test(email);
 }
 const login = async () => {
-        try {
-            const username = document.getElementById("txtName").value
-            const password = document.getElementById("txtPassword").value
+    try {
+        const username = document.getElementById("txtName").value.trim()
+        const password = document.getElementById("txtPassword").value.trim()
             const user = {
                 username, password
             }

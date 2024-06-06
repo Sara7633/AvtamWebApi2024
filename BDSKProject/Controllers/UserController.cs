@@ -28,6 +28,8 @@ namespace BDSKProject.Controllers
             User userRes = await userService.Register(user);
             if (userRes != null)
             {
+                string token = userService.generateJwtToken(userRes);
+                Response.Cookies.Append("X-Access-Token", token, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
                 return Ok(userRes);
             }
             else if (userRes == null)
@@ -37,17 +39,29 @@ namespace BDSKProject.Controllers
             return BadRequest();
         }
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login([FromBody] UserDTO userDTO)
+        public async Task<ActionResult<User>> Login([FromBody] loginUserDTO userDTO)
         {
-            User user = mapper.Map<UserDTO, User>(userDTO);
+            User user = mapper.Map<loginUserDTO, User>(userDTO);
             User userRes = await userService.Login(user);
             if (userRes != null)
             {
+                string token = userService.generateJwtToken(userRes);
+                Response.Cookies.Append("X-Access-Token", token, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
+
                 return Ok(userRes);
             }
             return Unauthorized();
         }
-
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUserById(int id)
+        {
+            User user = await userService.GetUserById(id);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound(user);
+        }
 
         [HttpPut("{id}")]
         public async Task<ActionResult<User>> Update(int id, [FromBody] User user)

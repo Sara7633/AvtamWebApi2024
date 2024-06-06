@@ -16,7 +16,7 @@ namespace TestProject
         {
             // Set up the test database connection and initialize the context
             var options = new DbContextOptionsBuilder<_214346710DbContext>()
-                .UseSqlServer("Server=srv2\\pupils;Database=Tests;Trusted_Connection=True;")
+                .UseSqlServer("Server=srv2\\pupils;Database=Tests_214346710;Trusted_Connection=True;TrustServerCertificate=True;")
                 .Options;
             Context = new _214346710DbContext(options);
             Context.Database.EnsureCreated();// create the data base

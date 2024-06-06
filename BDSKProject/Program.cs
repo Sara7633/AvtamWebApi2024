@@ -4,12 +4,50 @@ using NLog.Web;
 using Repository;
 using Service;
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("key").Value);
+
+builder.Services
+    .AddAuthentication(option =>
+    option.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme
+
+   )
+    .AddJwtBearer(options =>
+    {
+        options.Events = new JwtBearerEvents()
+        {
+
+            //get cookie value
+            OnMessageReceived = context =>
+            {
+                var a = "";
+                context.Request.Cookies.TryGetValue("X-Access-Token", out a);
+                context.Token = a;
+                return Task.CompletedTask;
+            }
+        };
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ClockSkew = TimeSpan.Zero,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+        };
+    });
+
 builder.Services.AddControllers();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
