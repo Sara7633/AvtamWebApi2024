@@ -43,5 +43,39 @@ The application is built according to a layered architecture, divided into:
 ## Coding Standards
 - **Clean Code Principles**: Followed meticulously throughout the codebase
 
+## Testing
+
+In line with the project's emphasis on reliability and quality, an extensive suite of tests has been implemented to validate the User-related operations. The testing files encompass various scenarios to ensure the correctness of the UserRepository class methods:
+
+
+### UserUnitTests.cs
+
+  
+- **TestRegister_NewUser_Success**: Validates successful registration of a new user.
+
+  
+- **TestRegister_NewUser_InSuccess**: Tests behavior when attempting to register a user with existing credentials.
+
+  
+- **TestLogin_Successful**: Ensures successful login with the correct username and password.
+
+  
+- **TestLogin_Failed**: Tests login failure with an incorrect password.
+
+  
+- **Register_ExceptionThrown_ExceptionIsThrown**: Verifies that an exception is thrown during user registration.
+
+  
+- **Update_ExistingUser_SuccessfullyUpdated**: Validates the successful update of an existing user's information.
+
+  
+- **Update_NonExistingUser_ReturnsNull**: Confirms that updating a non-existing user returns null.
+
+
+### UserIntegrationTest.cs
+
+  
+- **GetUser_ValidCredentials_ReturnsUser**: Tests the retrieval of a user with valid credentials from the database.
+
 ## Authors
 - Sara & Yehudit
