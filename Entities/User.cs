@@ -11,7 +11,7 @@ public partial class User
     [Required]
     public string UserName { get; set; } = null!;
     [Required]
-
+    
     public string Password { get; set; } = null!;
 
     public string? FirstName { get; set; }
@@ -20,5 +20,6 @@ public partial class User
     
     [EmailAddress]
     public string? Email { get; set; }
+    public string? Salt { get; set; }
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

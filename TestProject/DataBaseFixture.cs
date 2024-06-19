@@ -10,15 +10,15 @@ namespace TestProject
 {
     public class DatabaseFixture : IDisposable
     {
-        public _214346710DbContext Context { get; private set; }
+        public AvtamWebApi2024Context Context { get; private set; }
 
         public DatabaseFixture()
         {
             // Set up the test database connection and initialize the context
-            var options = new DbContextOptionsBuilder<_214346710DbContext>()
+            var options = new DbContextOptionsBuilder<AvtamWebApi2024Context>()
                 .UseSqlServer("Server=srv2\\pupils;Database=Tests_214346710;Trusted_Connection=True;TrustServerCertificate=True;")
                 .Options;
-            Context = new _214346710DbContext(options);
+            Context = new AvtamWebApi2024Context(options);
             Context.Database.EnsureCreated();// create the data base
         }
 

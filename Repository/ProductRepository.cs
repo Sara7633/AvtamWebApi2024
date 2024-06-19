@@ -9,9 +9,9 @@ namespace Repository
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly _214346710DbContext productContext;
+        private readonly AvtamWebApi2024Context productContext;
 
-        public ProductRepository(_214346710DbContext productContext)
+        public ProductRepository(AvtamWebApi2024Context productContext)
         {
             this.productContext = productContext;
         }

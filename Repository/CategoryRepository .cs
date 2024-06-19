@@ -7,9 +7,9 @@ namespace Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly _214346710DbContext categoryContext;
+        private readonly AvtamWebApi2024Context categoryContext;
 
-        public CategoryRepository(_214346710DbContext categoryContext)
+        public CategoryRepository(AvtamWebApi2024Context categoryContext)
         {
             this.categoryContext = categoryContext;
         }

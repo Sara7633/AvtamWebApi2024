@@ -30,6 +30,7 @@ namespace BDSKProject.Controllers
 
             };
             List<OrderItem> orderItems = mapper.Map<List<OrderItemDTO>, List< OrderItem>>(orderDTO.OrderItems.ToList());
+
             Order orderRes = await orderService.AddOrder(o,orderItems);
 
             if (orderRes != null)

@@ -38,7 +38,7 @@ namespace BDSKProject
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class RoutingMiddlewareExtensions
     {
-        public static IApplicationBuilder UseRoutingMiddleware(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseRatingMiddleware(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<RatingMiddleware>();
         }

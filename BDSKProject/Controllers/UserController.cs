@@ -2,6 +2,7 @@
 using AutoMapper;
 using DTO;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -39,10 +40,12 @@ namespace BDSKProject.Controllers
             return BadRequest();
         }
         [HttpPost("login")]
+        [Authorize]
         public async Task<ActionResult<User>> Login([FromBody] loginUserDTO userDTO)
         {
             User user = mapper.Map<loginUserDTO, User>(userDTO);
             User userRes = await userService.Login(user);
+            
             if (userRes != null)
             {
                 string token = userService.generateJwtToken(userRes);
@@ -64,6 +67,7 @@ namespace BDSKProject.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<ActionResult<User>> Update(int id, [FromBody] User user)
         {
             User u = await userService.Update(id, user);

@@ -12,19 +12,25 @@ namespace Service
     public class UserService : IUserService
     {
         public readonly IUserRepository userRepository;
-        IConfiguration _configuration;
-        public UserService(IUserRepository userRepository, IConfiguration configuration)
+        public readonly IConfiguration _configuration;
+        public readonly IPasswordHashHelper passwordHashHelper;
+        public UserService(IUserRepository userRepository, IConfiguration configuration,IPasswordHashHelper passwordHashHelper)
         {
             this.userRepository = userRepository;
             _configuration = configuration;
+            this.passwordHashHelper = passwordHashHelper;
         }
 
         public async Task<User> Register(User user)
         {
+            user.Salt=passwordHashHelper.GenerateSalt(6);
+            user.Password = passwordHashHelper.HashPassword(user.Password,user.Salt,1000,15);
             return await userRepository.Register(user);
         }
         public async Task<User> Login(User user)
         {
+            //var bytes = passwordHashHelper.GetHash(user.Password, user.Salt);
+            //passwordHashHelper.CompareHash(user.Password,bytes,user.Salt);
             User u = await userRepository.Login(user);
             return u;
         }

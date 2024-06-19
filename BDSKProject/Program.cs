@@ -59,7 +59,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
-builder.Services.AddDbContext<_214346710DbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("School")));
+builder.Services.AddScoped<IPasswordHashHelper, PasswordHashHelper>();
+builder.Services.AddDbContext<AvtamWebApi2024Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("School")));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Host.UseNLog();
@@ -77,7 +78,7 @@ app.UseAuthorization();
 
 app.UseErrorHandlingMiddleware();
 
-app.UseRoutingMiddleware();
+app.UseRatingMiddleware();
 
 app.MapControllers();
 
@@ -94,5 +95,5 @@ app.Run();
 
 
 
-//Scaffold-DbContext "Data Source=srv2\PUPILS;Initial Catalog=214346710_DB;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer
+//Scaffold-DbContext "Data Source=srv2\PUPILS;Initial Catalog=AvtamWebApi2024Context;Trusted_Connection=True;TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer
 

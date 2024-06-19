@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository;
 
-public partial class _214346710DbContext : DbContext
+public partial class AvtamWebApi2024Context : DbContext
 {
-    public _214346710DbContext()
+    public AvtamWebApi2024Context()
     {
     }
 
-    public _214346710DbContext(DbContextOptions<_214346710DbContext> options)
+    public AvtamWebApi2024Context(DbContextOptions<AvtamWebApi2024Context> options)
         : base(options)
     {
     }
@@ -29,12 +29,8 @@ public partial class _214346710DbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if(!optionsBuilder.IsConfigured)
-        optionsBuilder.UseSqlServer("Data Source=srv2\\PUPILS;Initial Catalog=214346710_DB;Trusted_Connection=True;TrustServerCertificate=True");
-
-    }
-
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=srv2\\PUPILS;Initial Catalog=AvtamWebApi2024;Trusted_Connection=True;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -84,15 +80,15 @@ public partial class _214346710DbContext : DbContext
             entity.Property(e => e.ProductId).HasColumnName("productId");
             entity.Property(e => e.CategoryId).HasColumnName("categoryId");
             entity.Property(e => e.Description)
-                .HasMaxLength(20)
+                .HasMaxLength(30)
                 .IsFixedLength()
                 .HasColumnName("description");
             entity.Property(e => e.Image)
-                .HasMaxLength(30)
+                .HasMaxLength(40)
                 .IsFixedLength()
                 .HasColumnName("image");
             entity.Property(e => e.Name)
-                .HasMaxLength(10)
+                .HasMaxLength(20)
                 .IsFixedLength()
                 .HasColumnName("name");
             entity.Property(e => e.Price).HasColumnName("price");
@@ -145,6 +141,10 @@ public partial class _214346710DbContext : DbContext
                 .HasMaxLength(20)
                 .IsFixedLength()
                 .HasColumnName("password");
+            entity.Property(e => e.Salt)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("salt");
             entity.Property(e => e.UserName)
                 .HasMaxLength(20)
                 .IsFixedLength()

@@ -10,7 +10,7 @@ namespace TestProject
 {
     public class UserIntegrationTest : IClassFixture<DatabaseFixture>
     {
-        private readonly _214346710DbContext _dbContext;
+        private readonly AvtamWebApi2024Context _dbContext;
         private readonly UserRepository userRepository;
         public UserIntegrationTest(DatabaseFixture databaseFixture)
         {

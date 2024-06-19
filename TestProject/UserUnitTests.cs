@@ -19,7 +19,7 @@ namespace TestProject
         public async Task TestRegister_NewUser_Success()
         {
             // Arrange
-            var mockDbContext = new Mock<_214346710DbContext>();
+            var mockDbContext = new Mock<AvtamWebApi2024Context>();
 
             var user = new User { UserName = "newuser", Password = "password123", FirstName = "aaa", LastName = "aaa" };
             var userReg = new User { UserName = "aaa", Password = "aaa", FirstName = "aaa", LastName = "aaa" };
@@ -38,7 +38,7 @@ namespace TestProject
         public async Task TestRegister_NewUser_InSuccess()
         {
             // Arrange
-            var mockDbContext = new Mock<_214346710DbContext>();
+            var mockDbContext = new Mock<AvtamWebApi2024Context>();
             var user = new User { UserName = "aaa", Password = "aaa", FirstName = "aaa", LastName = "aaa" };
             var userReg = new User { UserName = "aaa", Password = "aaa", FirstName = "aaa", LastName = "aaa" };
             mockDbContext.Setup(m => m.Users).ReturnsDbSet(new List<User> { user });
@@ -54,7 +54,7 @@ namespace TestProject
         public async Task TestLogin_Successful()
         {
             // Arrange
-            var mockUserContext = new Mock<_214346710DbContext>();
+            var mockUserContext = new Mock<AvtamWebApi2024Context>();
             var users = new List<User>
             {
                 new User { UserName = "testuser", Password = "password" }
@@ -76,7 +76,7 @@ namespace TestProject
         public async Task TestLogin_Failed()
         {
             // Arrange
-            var mockUserContext = new Mock<_214346710DbContext>();
+            var mockUserContext = new Mock<AvtamWebApi2024Context>();
             var users = new List<User>
             {
             new User { UserName = "testuser", Password = "password" }
@@ -98,7 +98,7 @@ namespace TestProject
         public async Task Register_ExceptionThrown_ExceptionIsThrown()
         {
             // Arrange
-            var userContextMock = new Mock<_214346710DbContext>();
+            var userContextMock = new Mock<AvtamWebApi2024Context>();
             var user = new User { UserName = "testuser", Password = "password123" };
             userContextMock.Setup(x => x.Users.AddAsync(It.IsAny<User>(), default)).ThrowsAsync(new Exception("Simulated exception"));
 
@@ -116,7 +116,7 @@ namespace TestProject
             var existingUser = new User { Id = id, UserName = "existinguser", Password = "password123" };
             var updatedUser = new User { Id = id, UserName = "updateduser", Password = "updated123" };
 
-            var dbContextMock = new Mock<_214346710DbContext>();
+            var dbContextMock = new Mock<AvtamWebApi2024Context>();
             dbContextMock.Setup(m => m.Users).ReturnsDbSet(new List<User> { existingUser });
 
             var userRepository = new UserRepository(dbContextMock.Object);
@@ -137,7 +137,7 @@ namespace TestProject
             var id = 1;
             var nonExistingUser = new User { Id = id + 1, UserName = "nonexistinguser", Password = "password123" };
             var existingUser = new User { Id = id, UserName = "existinguser", Password = "password123" };
-            var dbContextMock = new Mock<_214346710DbContext>();
+            var dbContextMock = new Mock<AvtamWebApi2024Context>();
             dbContextMock.Setup(m => m.Users).ReturnsDbSet(new List<User> { existingUser });
 
             var userRepository = new UserRepository(dbContextMock.Object);

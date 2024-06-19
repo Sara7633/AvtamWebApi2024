@@ -7,9 +7,9 @@ namespace Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly _214346710DbContext userContext;
+        private readonly AvtamWebApi2024Context userContext;
 
-        public UserRepository(_214346710DbContext userContext)
+        public UserRepository(AvtamWebApi2024Context userContext)
         {
             this.userContext = userContext;
         }
@@ -57,6 +57,8 @@ namespace Repository
                 throw new Exception(e.Message);
             }
         }
+
+
 
         public async Task<User> Login(User user)
         {

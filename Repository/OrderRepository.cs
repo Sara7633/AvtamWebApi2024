@@ -8,9 +8,9 @@ namespace Repository
 {
     public class OrderRepository : IOrderRepository
     {
-        private readonly _214346710DbContext orderContext;
+        private readonly AvtamWebApi2024Context orderContext;
 
-        public OrderRepository(_214346710DbContext orderContext)
+        public OrderRepository(AvtamWebApi2024Context orderContext)
         {
             this.orderContext = orderContext;
         }
